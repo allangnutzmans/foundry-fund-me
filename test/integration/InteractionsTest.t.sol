@@ -27,10 +27,11 @@ contract InteractionsTest is ZkSyncChainChecker, StdCheats, Test {
     function setUp() external skipZkSync {
         if (!isZkSyncChain()) {
             DeployFundMe deployer = new DeployFundMe();
-            (fundMe, helperConfig) = deployer.deployFundMe();
+            fundMe = deployer.run();
+            helperConfig = new HelperConfig();
         } else {
             helperConfig = new HelperConfig();
-            fundMe = new FundMe(helperConfig.getConfigByChainId(block.chainid).priceFeed);
+            fundMe = new FundMe(helperConfig.activeNetworkConfig());
         }
         vm.deal(USER, STARTING_USER_BALANCE);
     }
