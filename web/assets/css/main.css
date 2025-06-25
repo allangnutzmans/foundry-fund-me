@@ -1,0 +1,49 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --ui-radius: 1rem;
+
+  /* Background */
+  --ui-bg: hsl(0 0% 100%);
+  --ui-bg-muted: hsl(240 4.8% 95.9%);
+  --ui-bg-accented: hsl(240 4.8% 95.9%);
+  
+  /* Text */
+  --ui-text: hsl(240 10% 3.9%);
+  --ui-text-muted: hsl(240 3.8% 46.1%);
+  
+  /* Border */
+  --ui-border: hsl(240 5.9% 90%);
+
+  /* Primary */
+  --ui-primary: hsl(142.1 76.2% 36.3%);
+
+  /* Other colors */
+  --ui-secondary: hsl(240 4.8% 95.9%);
+  --ui-error: hsl(0 84.2% 60.2%);
+}
+
+.dark {
+  /* Background */
+  --ui-bg: hsl(20 14.3% 4.1%);
+  --ui-bg-muted: hsl(0 0% 15%);
+  --ui-bg-accented: hsl(12 6.5% 15.1%);
+
+  /* Text */
+  --ui-text: hsl(0 0% 95%);
+  --ui-text-muted: hsl(240 5% 64.9%);
+
+  /* Border */
+  --ui-border: hsl(240 3.7% 15.9%);
+
+  /* Primary */
+  --ui-primary: hsl(142.1 70.6% 45.3%);
+
+  /* Other colors */
+  --ui-secondary: hsl(240 3.7% 15.9%);
+  --ui-error: hsl(0 62.8% 30.6%);
+}
