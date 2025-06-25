@@ -1,6 +1,5 @@
 # Foundry Fund Me
 
-## INTEGRATION TESTS NOT WORKING
 
 # About
 
@@ -28,6 +27,10 @@ This is a minimal project allowing users to fund the contract owner with donatio
     - [Withdraw](#withdraw)
   - [Estimate gas](#estimate-gas)
 - [Formatting](#formatting)
+- [Frontend (Nuxt/Web) Integration](#frontend-nuxtweb-integration)
+  - [Running the Frontend](#running-the-frontend)
+  - [Connecting to the Smart Contracts](#connecting-to-the-smart-contracts)
+  - [Dependencies](#dependencies)
 - [Additional Info:](#additional-info)
   - [Let's talk about what "Official" means](#lets-talk-about-what-official-means)
   - [Summary](#summary)
@@ -170,5 +173,34 @@ To run code formatting:
 ```
 forge fmt
 ```
+
+# Frontend (Nuxt/Web) Integration
+
+The frontend for this project already exists in the `/web` directory.
+
+## Running the Frontend
+
+1. Open a terminal and navigate to the `web` directory:
+   ```bash
+   cd web
+   ```
+2. Install dependencies (if you haven't already):
+   ```bash
+   pnpm install
+   ```
+3. Start the development server:
+   ```bash
+   pnpm run dev
+   ```
+4. Visit the local address shown in your terminal (usually http://localhost:3000).
+
+## Connecting to the Smart Contracts
+- Use libraries like [ethers.js](https://docs.ethers.org/) or [web3.js](https://web3js.readthedocs.io/) in your Nuxt app to interact with your deployed contracts.
+- You may want to store contract addresses and ABIs in the frontend directory for easy access.
+
+## Dependencies
+- The backend (Foundry) and frontend (Nuxt) manage their dependencies separately. Use `npm` or `yarn` in `web/`, and Foundry tools in the root.
+
+Document any additional frontend setup or environment variables in this README as needed.
 
 # Thank you!
