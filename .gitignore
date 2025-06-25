@@ -8,11 +8,7 @@ out/
 /broadcast/**/dry-run/
 
 # Ignores lib
-/lib/*
-!/lib/.gitkeep
-!/lib/forge-std
-!/lib/foundry-devops
-!/lib/chainlink-brownie-contracts
+/lib
 
 # Docs
 docs/
