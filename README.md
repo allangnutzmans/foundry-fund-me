@@ -195,7 +195,7 @@ The frontend for this project already exists in the `/web` directory.
 4. Visit the local address shown in your terminal (usually http://localhost:3000).
 
 ## Connecting to the Smart Contracts
-- Use libraries like [wagmi] in your Nuxt app to interact with your deployed contracts.
+- Use libraries like ([wagmi](https://wagmi.sh/vue/getting-started)) in your Nuxt app to interact with your deployed contracts.
 - You may want to store contract addresses and ABIs in the frontend directory for easy access.
 
 ## Dependencies
