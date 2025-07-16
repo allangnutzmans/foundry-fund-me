@@ -43,7 +43,7 @@ const balanceQuery = ref({
   address: fundMeContract.address,
   chainId: chainId.value,
 });
-const { data: balanceData, isLoading: isBalanceLoading, refetch: refetchBalance } = useBalance(balanceQuery);
+const { data: balanceData, isLoading: isBalanceLoading, refetch: refetchBalance } = useBalance(balangit aceQuery);
 
 const injectedConnector = computed(() =>
     connectors.find((c) => c.id === "injected")
@@ -257,7 +257,7 @@ const copyOwnerAddress = (owner: string) => {
           <FormItem>
             <FormLabel>I want to contribute with...</FormLabel>
             <FormControl>
-              <Input type="number" min="0.00000001" placeholder="Value in ETH" v-bind="componentField" class="w-full" />
+              <Input type="number" step="any" min="0.00000001" placeholder="Value in ETH" v-bind="componentField" class="w-full" />
             </FormControl>
             <FormDescription v-if="hash">
               <UTooltip text="Click to copy">
