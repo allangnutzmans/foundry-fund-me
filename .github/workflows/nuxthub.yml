@@ -1,9 +1,9 @@
-name: Deploy to NuxtHub
+name: Deploy Fund Me W3
 on: push
 
 jobs:
   deploy:
-    name: "Deploy to NuxtHub"
+    name: "Deploy Fund Me W3"
     runs-on: ubuntu-latest
     permissions:
       contents: read
