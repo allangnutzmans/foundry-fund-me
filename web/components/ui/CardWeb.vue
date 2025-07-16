@@ -43,7 +43,7 @@ const balanceQuery = ref({
   address: fundMeContract.address,
   chainId: chainId.value,
 });
-const { data: balanceData, isLoading: isBalanceLoading, refetch: refetchBalance } = useBalance(balangit aceQuery);
+const { data: balanceData, isLoading: isBalanceLoading, refetch: refetchBalance } = useBalance(balanceQuery);
 
 const injectedConnector = computed(() =>
     connectors.find((c) => c.id === "injected")
