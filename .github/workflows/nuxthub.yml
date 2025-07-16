@@ -37,4 +37,5 @@ jobs:
         uses: nuxt-hub/action@v2
         with:
           project-key: fund-me-4u2p
-          directory: /web
+          directory: web
+          build-command: pnpm run build
