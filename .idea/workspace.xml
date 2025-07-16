@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0aa3708e-62d6-499e-9441-ae7fbe537f5d" name="Changes" comment="First commit" />
+    <list default="true" id="6e71a1c0-ae25-4930-9afe-1c66fab86d57" name="Changes" comment="Add `CardWeb` component to manage Web3 functionality including wallet connection, contract funding, and withdrawal.">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/components/ui/CardWeb.vue" beforeDir="false" afterPath="$PROJECT_DIR$/web/components/ui/CardWeb.vue" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -12,24 +18,12 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="ROOT_SYNC" value="DONT_SYNC" />
+    <option name="RESET_MODE" value="SOFT" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;allangnutzmans&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;git@github.com:allangnutzmans/foundry-fund-me.git&quot;,
-    &quot;accountId&quot;: &quot;dd575fca-7ace-4376-9f12-6f0a6b61bbb2&quot;
-  }
-}</component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 0
-}</component>
-  <component name="ProjectId" id="2yNwzttAzeasg0fSkkhGqC9OAcS" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="2zw5Qa2Mi431qpHBIhxSas7fB8E" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -40,17 +34,11 @@
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "/home/allan/Desktop/Web3/foundry/foundry-fund-me",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Rainbow Brackets",
+    "nodejs_package_manager_path": "yarn",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -63,32 +51,13 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="0aa3708e-62d6-499e-9441-ae7fbe537f5d" name="Changes" comment="" />
-      <created>1749688604901</created>
+      <changelist id="6e71a1c0-ae25-4930-9afe-1c66fab86d57" name="Changes" comment="Add `CardWeb` component to manage Web3 functionality including wallet connection, contract funding, and withdrawal." />
+      <created>1752629283861</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1749688604901</updated>
-      <workItem from="1749688606036" duration="1920000" />
-      <workItem from="1749728988726" duration="8000" />
-      <workItem from="1750819612276" duration="8000" />
+      <updated>1752629283861</updated>
+      <workItem from="1752629286106" duration="116000" />
     </task>
-    <task id="LOCAL-00001" summary="First solidity project">
-      <option name="closed" value="true" />
-      <created>1749692679844</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1749692679844</updated>
-    </task>
-    <task id="LOCAL-00002" summary="First commit">
-      <option name="closed" value="true" />
-      <created>1749693039481</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1749693039481</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -106,8 +75,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="First solidity project" />
-    <MESSAGE value="First commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="First commit" />
+    <MESSAGE value="Add `CardWeb` component to manage Web3 functionality including wallet connection, contract funding, and withdrawal." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add `CardWeb` component to manage Web3 functionality including wallet connection, contract funding, and withdrawal." />
   </component>
 </project>
