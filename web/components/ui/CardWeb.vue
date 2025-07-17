@@ -23,25 +23,26 @@ import { Input } from "~/components/ui/input";
 import { toTypedSchema } from "@vee-validate/zod";
 import { z } from "zod";
 import { parseEther } from "viem";
+import { sepolia } from 'viem/chains';
 
 const toast = useToast();
 const chainId = useChainId();
 const { connectors, connect } = useConnect();
 const { status, address } = useAccount();
 const { writeContract } = useWriteContract();
-const { data: hash, sendTransaction, isPending } = useSendTransaction();
+const { data: hash, isPending } = useSendTransaction();
 const isWithdrawing = ref(false);
 const ownerQuery = ref({
   ...fundMeContract,
   functionName: 'getOwner',
-  chainId: chainId.value,
+  chainId: sepolia.id,
 });
 const { data: owner, isLoading: isOwnerLoading, refetch: refetchOwner } = useReadContract(ownerQuery)
 
 // Create refs for balance and owner queries to enable manual refresh
 const balanceQuery = ref({
   address: fundMeContract.address,
-  chainId: chainId.value,
+  chainId: sepolia.id,
 });
 const { data: balanceData, isLoading: isBalanceLoading, refetch: refetchBalance } = useBalance(balanceQuery);
 
@@ -98,7 +99,7 @@ const withdraw = async () => {
       address: fundMeContract.address,
       abi: fundMeContract.abi,
       functionName: 'withdraw',
-      chainId: chainId.value,
+      chainId: sepolia.id,
     })
 
     // Show success notification
