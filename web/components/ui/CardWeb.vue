@@ -24,7 +24,6 @@ import { z } from "zod";
 import { parseEther } from "viem";
 import { sepolia } from 'viem/chains';
 import { publicClient } from "@/lib/publicClient";
-import type { UseReadContractParameters } from "@wagmi/vue";
 
 const toast = useToast();
 const { connectors, connect } = useConnect();
