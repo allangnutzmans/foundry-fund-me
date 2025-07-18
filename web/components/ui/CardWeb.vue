@@ -10,7 +10,6 @@ import {
 import {
   useAccount,
   useBalance,
-  useChainId,
   useConnect,
   useWriteContract,
   useSendTransaction,
@@ -24,22 +23,24 @@ import { toTypedSchema } from "@vee-validate/zod";
 import { z } from "zod";
 import { parseEther } from "viem";
 import { sepolia } from 'viem/chains';
+import { publicClient } from "@/lib/publicClient";
+import type { UseReadContractParameters } from "@wagmi/vue";
 
 const toast = useToast();
-const chainId = useChainId();
 const { connectors, connect } = useConnect();
 const { status, address } = useAccount();
 const { writeContract } = useWriteContract();
 const { data: hash, isPending } = useSendTransaction();
 const isWithdrawing = ref(false);
+
 const ownerQuery = ref({
-  ...fundMeContract,
-  functionName: 'getOwner',
+  address: fundMeContract.address,
+  abi: fundMeContract.abi,
+  functionName: 'getOwner' as const,
   chainId: sepolia.id,
 });
-const { data: owner, isLoading: isOwnerLoading, refetch: refetchOwner } = useReadContract(ownerQuery)
+const { data: owner, isLoading: isOwnerLoading, refetch: refetchOwner } = useReadContract(ownerQuery);
 
-// Create refs for balance and owner queries to enable manual refresh
 const balanceQuery = ref({
   address: fundMeContract.address,
   chainId: sepolia.id,
@@ -58,73 +59,82 @@ const { isFieldDirty, handleSubmit } = useForm({
   validationSchema: formSchema,
 });
 
-const onSubmit = handleSubmit(async (values) => {
-  try {
-    //sendTransaction({ to: fundMeContract.address, value: parseEther(values.value.toString()) });
-    await writeContract({
+const onSubmit = handleSubmit((values) => {
+  writeContract(
+    {
       address: fundMeContract.address,
       abi: fundMeContract.abi,
       functionName: 'fund',
       value: parseEther(values.value.toString())
-    });
-
-    // Show success notification
-    toast.add({
-      title: 'Transaction Successful',
-      description: `Successfully funded contract with ${values.value} ETH`,
-      icon: 'i-heroicons-check-circle',
-      color: 'success',
-    })
-
-    // Refresh contract data to show updated balance
-    await refreshContractData();
-  } catch (error) {
-    console.error('Fund error:', error)
-
-    // Show error notification
-    useToast().add({
-      title: 'Transaction Failed',
-      description: 'There was an error processing your transaction',
-      icon: 'i-heroicons-x-circle',
-      color: 'error',
-    })
-  }
+    },
+    {
+      onSuccess: async (data) => {
+        debugger
+        toast.add({
+          title: 'Aguardando Confirmação',
+          description: 'Aguardando confirmação da transação na blockchain...',
+          icon: 'i-heroicons-arrow-path',
+          color: 'info',
+        });
+        await publicClient.waitForTransactionReceipt({ hash: data });
+        toast.add({
+          title: 'Transaction Successful',
+          description: `Successfully funded contract with ${values.value} ETH`,
+          icon: 'i-heroicons-check-circle',
+          color: 'success',
+        });
+        await refreshContractData();
+      },
+      onError: (error) => {
+        toast.add({
+          title: 'Transaction Failed',
+          description: error?.message || String(error) || 'Houve um erro ao processar sua transação',
+          icon: 'i-heroicons-x-circle',
+          color: 'error',
+        });
+      }
+    }
+  );
 });
 
-
-const withdraw = async () => {
-  isWithdrawing.value = true
-  try {
-    await writeContract({
+const withdraw = () => {
+  isWithdrawing.value = true;
+  writeContract(
+    {
       address: fundMeContract.address,
       abi: fundMeContract.abi,
       functionName: 'withdraw',
       chainId: sepolia.id,
-    })
-
-    // Show success notification
-    toast.add({
-      title: 'Withdrawal Successful',
-      description: 'Successfully withdrew all funds from the contract',
-      icon: 'i-heroicons-check-circle',
-      color: 'success',
-    })
-
-    // Refresh contract data to show updated balance
-    await refreshContractData();
-  } catch (error) {
-    console.error('Withdraw error:', error)
-
-    // Show error notification
-    toast.add({
-      title: 'Withdrawal Failed',
-      description: 'There was an error processing your withdrawal',
-      icon: 'i-heroicons-x-circle',
-      color: 'error',
-    })
-  } finally {
-    isWithdrawing.value = false
-  }
+    },
+    {
+      onSuccess: async (data) => {
+        toast.add({
+          title: 'Aguardando Confirmação',
+          description: 'Aguardando confirmação da transação na blockchain...',
+          icon: 'i-heroicons-arrow-path',
+          color: 'info',
+        });
+        await publicClient.waitForTransactionReceipt({ hash: data });
+        toast.add({
+          title: 'Withdrawal Successful',
+          description: 'Successfully withdrew all funds from the contract',
+          icon: 'i-heroicons-check-circle',
+          color: 'success',
+        });
+        await refreshContractData();
+        isWithdrawing.value = false;
+      },
+      onError: (error) => {
+        toast.add({
+          title: 'Withdrawal Failed',
+          description: error?.message || String(error) || 'There was an error processing your withdrawal',
+          icon: 'i-heroicons-x-circle',
+          color: 'error',
+        });
+        isWithdrawing.value = false;
+      }
+    }
+  );
 }
 
 // Function to refresh all contract data
@@ -140,8 +150,7 @@ const refreshContractData = async () => {
       title: 'Data Refreshed',
       description: 'Contract data has been updated',
       icon: 'i-heroicons-check-circle',
-      color: 'blue',
-      timeout: 3000
+      color: 'info',
     })
   } catch (error) {
     console.error('Refresh error:', error)
@@ -150,7 +159,8 @@ const refreshContractData = async () => {
   }
 }
 function copyAddress() {
-  navigator.clipboard.writeText(address);
+  if (!address.value) return;
+  navigator.clipboard.writeText(address.value);
   toast.add({
     title: 'Address Copied',
     description: 'Address copied to clipboard',
@@ -159,7 +169,8 @@ function copyAddress() {
   });
 }
 
-const copyOwnerAddress = (owner: string) => {
+const copyOwnerAddress = (owner?: string) => {
+  if (!owner) return;
   navigator.clipboard.writeText(owner);
   toast.add({
     title: 'Owner Address Copied',
@@ -167,6 +178,11 @@ const copyOwnerAddress = (owner: string) => {
     icon: 'i-heroicons-clipboard-document-check',
     color: 'info',
   });
+}
+
+const copyTransactionHash = (hash?: string) => {
+  if (!hash) return;
+  navigator.clipboard.writeText(hash)
 }
 
 </script>
@@ -185,13 +201,16 @@ const copyOwnerAddress = (owner: string) => {
 
     <div class="space-y-4">
       <!-- Wallet Connection -->
-      <UAlert v-if="status !== 'connected'" icon="i-heroicons-exclamation-triangle" color="warning">
-        Please connect your wallet to interact with the contract
-      </UAlert>
+      <UAlert
+          v-if="status !== 'connected'"
+          title="Connect your wallet to interact with the contract"
+          icon="i-heroicons-exclamation-triangle"
+          color="warning"
+      />
 
       <Button
           v-if="injectedConnector && status !== 'connected'"
-          @click="connect({ connector: injectedConnector, chainId: chainId })"
+          @click="connect({ connector: injectedConnector, chainId: sepolia.id })"
           class="w-full"
           size="lg"
       >
@@ -262,7 +281,7 @@ const copyOwnerAddress = (owner: string) => {
             </FormControl>
             <FormDescription v-if="hash">
               <UTooltip text="Click to copy">
-                <div @click="navigator.clipboard.writeText(hash)" class="cursor-pointer">
+                <div @click="copyTransactionHash(hash)" class="cursor-pointer">
                   Transaction Hash: <span class="font-mono text-xs">{{ hash.substring(0, 15) }}...{{ hash.substring(hash.length - 8) }}</span>
                 </div>
               </UTooltip>
