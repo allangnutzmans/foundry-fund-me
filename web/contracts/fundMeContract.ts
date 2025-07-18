@@ -68,5 +68,5 @@ export const fundMeContract = {
         },
         { "type": "function", "name": "withdraw", "inputs": [], "outputs": [], "stateMutability": "nonpayable" },
         { "type": "error", "name": "FundMe__NotOwner", "inputs": [] }
-      ]
+    ]
 } as const
